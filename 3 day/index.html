@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Изменение CSS переменных с помощью
+        <span class="h1">JS</span>
+    </h2>
+    <div class="controls">
+        <label for="spacing">Пространство</label>
+        <input type="range" name="spacing" min="10" max="200" value="10" data-sizing="px" />
+
+        <label for="blur">Размытость</label>
+        <input type="range" name="blur" min="0" max="25" value="10" data-sizing="px" />
+
+        <label for="color">Цвет</label>
+        <input type="color" name="color" value="#ffc600" />
+    </div>
+    <img src="image.jpg" alt="Picture" />
+
+    <style>
+        :root {
+            --color: #ffc600;
+            --spacing: 10px;
+            --blur: 10px;
+        }
+
+        body {
+            background: #193549;
+            color: #ffffff;
+            font-family: 'helvetica neue', Arial, sans-serif;
+            font-size: 50px;
+            font-weight: 100;
+            text-align: center;
+        }
+
+        .controls {
+            margin: 50px;
+        }
+
+        img {
+            background-color: var(--color);
+            filter: blur(var(--blur));
+            height: 300px;
+            padding: var(--spacing);
+
+        }
+
+        .h1 {
+            color: var(--color);
+        }
+
+        input {
+            width: 100px;
+        }
+    </style>
+
+    <script>
+        const inputs = document.querySelectorAll('.controls input');
+
+        function handleUpdate() {
+            const suffix = this.dataset.sizing || '';
+            document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+        }
+
+        for (let i = 0; i < inputs.length; ++i) {
+            inputs[i].addEventListener('change', handleUpdate);
+            inputs[i].addEventListener('mousemove', handleUpdate);
+        }
+        // inputs.forEach(input => { input.addEventListener('change', handleUpdate); input.addEventListener('mousemove', handleUpdate); });
+
+    </script>
+</body>
+
+</html>
