@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .anime {
+            animation: col 1s cubic-bezier(0,.32,.97,.62) infinite;
+            background: #000000;
+            border-radius: 90%;
+            height: 300px;
+            transition: all .5s;
+            width: 300px;
+
+        }
+
+        @keyframes col {
+            0% {
+                background-color: lightgreen;
+                
+            }
+
+            50% {
+                background: yellow;
+                transition: all .5s;
+            }
+
+            100% {
+                background-color: greenyellow;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="anime"></div>
+</body>
+
+</html>

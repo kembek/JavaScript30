@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            align-items: center;
+            background: gray;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+        }
+        
+        .square {
+            border: 15px solid red;
+            color: white;
+            height: 300px;
+            width: 300px;
+            margin: 30px;
+        }
+
+        .one {
+            transform: translate(30px, 50px);
+        }
+
+        .two {
+            transform: rotate(30deg);
+        }
+
+        .three {
+            transform: scale(1.2, 1.5);
+        }
+
+        .four {
+            transform: skew(10deg, 10deg);
+        }
+
+        .five {
+            transform: matrix(1.2, 1.2, 0.1, 1.2, 10, 20);
+        }
+    </style>
+</head>
+
+<body> 
+    <div class="square one">translate(30px, 50px);</div>
+    <div class="square two">rotate(30deg);</div>
+    <div class="square three">scale(1.2, 1.5);</div>
+    <div class="square four">skew(10deg, 10deg);</div>
+    <div class="square five">matrix(1.2, 1.2, 0.1, 1.2, 10, 20);</div>
+</body>
+
+</html>

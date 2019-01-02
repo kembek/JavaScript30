@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .circle,
+        .min-circle {
+            background: goldenrod;
+            border-radius: 50%;
+            height: 200px;
+            position: relative;
+            width: 200px;
+            transition: all 0.07s;
+        }
+
+        .min-circle {
+            background: black;
+            height: 20px;
+            left: 20%;
+            position: absolute;
+            top: 20%;
+            width: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="circle">
+        <div class="min-circle"></div>
+    </div>
+    <script>
+
+        function toCircle(value) {
+            const circle = document.querySelector(value);
+            let i = 1;
+            setInterval(function () {
+                let deg = ++i * 30;
+                circle.style.transform = `rotate(${deg}deg)`;
+            }, 70);
+        }
+
+        toCircle('.circle')
+
+
+    </script>
+</body>
+
+</html>

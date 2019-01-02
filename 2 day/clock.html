@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            align-items: center;
+            background: gray;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .circle {
+            background: dimgray url(clock.png) center center no-repeat;
+            border: 10px solid white;
+            border-radius: 50%;
+            height: 300px;
+            padding: 10px;
+            position: relative;
+            width: 300px;
+        }
+
+        .clock {
+            height: 100%;
+            transform: translateY(-4px);
+            width: 100%;
+        }
+
+        .min-circle,
+        .hand {
+            background: black;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            top: 50%;
+        }
+
+        .hand {
+            height: 5px;
+            transform: rotate(90deg);
+            transform-origin: 100% 100%;
+            transition: all 0.07s;
+            width: 50%;
+        }
+
+        .min-circle {
+            border: 1px solid white;
+            border-radius: 50%;
+            height: 30px;
+            top: 47%;
+            left: 46%;
+            width: 30px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="circle">
+        <div class="clock">
+            <div class="min-circle"></div>
+            <div class="hand hours"></div>
+            <div class="hand minute"></div>
+            <div class="hand second"></div>
+        </div>
+    </div>
+
+    <script>
+
+        function degSeconds() {
+            function c(time) {
+                if (0 === time && c.isFirst) {
+                    c.isFirst = false;
+                    return c.deg = 90;
+                }
+
+                return c.deg += 6;
+            }
+
+            c.deg = 0;
+            c.isFirst = true;
+
+            return c;
+        }
+
+        const second = document.querySelector('.second');
+        const minute = document.querySelector('.minute');
+        const hours = document.querySelector('.hours');
+        const ds = degSeconds();
+
+
+        setInterval(function () {
+            const now = new Date();
+            const s = now.getSeconds();
+            const m = now.getMinutes();
+            const h = now.getHours();
+
+            const secondDeg = ds(s);
+            second.style.transform = `rotate(${secondDeg}deg)`;
+            const minuteDeg = (m / 60 * 360) + 90;
+            minute.style.transform = `rotate(${minuteDeg}deg)`;
+            const hoursDeg = (h / 12) * 360 + 90;
+            hours.style.transform = `rotate(${hoursDeg}deg)`;
+
+        }, 1000);
+
+    </script>
+</body>
+
+</html>

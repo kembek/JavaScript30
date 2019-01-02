@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* любой элемент с атрибутом class */
+        div[class] {
+            background-color: tomato;
+        }
+        /* любой элемент с атрибутом class значение которого равно item */
+        div[class="item"] {
+            height: 300px;
+            width: 400px;
+        }
+        /* любой элемент с атрибутом class в значениях которого разделенных пробелом  возможно есть item */
+        div[class~="item"] {
+            border: 2px solid grey;
+        }
+        /* любой элемент с атрибутом class значение которого начинается с i */
+        div[class^="i"] {
+            margin: 20px;
+        }
+        /* любой элемент с атрибутом class в значение которого возможно есть с it */
+        div[class*="it"]:hover {
+            border: 5px dotted grey;
+            padding: 10px;
+        }
+        /* любой элемент с атрибутом class значение которого заканчивается на m */
+        div[class$="m"] {
+            cursor: pointer;
+            transition: all 1s;
+        }
+    </style>
+</head>
+<body>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+</body>
+</html>

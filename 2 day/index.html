@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Clock</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            align-items: center;
+            background: darkcyan;
+            display: flex;
+            justify-content: center;
+        }
+
+        .clock {
+            border: 20px solid #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 0 5px #00000010, 0 0 0 1px #00aeff60, inset 0 0 0 5px #a3a3a3;
+            height: 30rem;
+            padding: 15px;
+            position: relative;
+            width: 30rem;
+        }
+
+        .circle {
+            height: 100%;
+            width: 100%;
+            transform: translateY(-3px);
+        }
+
+        .hand {
+            background: #000000;
+            height: 6px;
+            position: absolute;
+            top: 50%;
+            width: 50%;
+            transform-origin: 100%;
+            transform: rotate(90deg);
+            transition: all 0.05s cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+
+        .min-circle {
+            background: #000000;
+            border: 1px solid #000000;
+            border-radius: 50%;
+            height: 1rem;
+            left: 48%;
+            position: absolute;
+            top: 48.9%;
+            width: 1rem;
+        }
+
+        /* .secund {
+            background: red;
+        }
+
+        .minute {
+            background: blue;
+        }
+
+        .hour {
+            background: green;
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="clock">
+        <div class="circle">
+            <div class="min-circle"></div>
+            <div class="hand hour"></div>
+            <div class="hand minute"></div>
+            <div class="hand secund"></div>
+        </div>
+    </div>
+
+    <script>
+
+        const secund = document.querySelector('.secund');
+        const minutes = document.querySelector('.minute');
+        const hours = document.querySelector('.hour');
+        function setDate() {
+            const date = new Date();
+            const second = date.getSeconds();
+            secund.style.transform = setDateHelper(second, 60);
+
+            const mins = date.getMinutes();
+            minutes.style.transform = setDateHelper(mins, 60);
+
+            const hour = date.getHours();
+            hours.style.transform = setDateHelper(hour, 12);
+        }
+
+        function setDateHelper(equals, option) {
+            const minDegre = ((equals / option) * 360) + 90;
+            return `rotate(${minDegre}deg)`;
+        }
+
+        setInterval(setDate, 1000);
+
+    </script>
+</body>
+
+</html>
