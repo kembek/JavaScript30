@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>1 day</title>
+    <link href="style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="keys">
+        <div data-key="68" class="key">
+            <kbd>D</kbd>
+            <span class="sound">Danger</span>
+        </div>
+        <div data-key="69" class="key">
+            <kbd>E</kbd>
+            <span class="sound">Everyday</span>
+        </div>
+        <div data-key="70" class="key">
+            <kbd>F</kbd>
+            <span class="sound">Friend</span>
+        </div>
+        <div data-key="75" class="key">
+            <kbd>K</kbd>
+            <span class="sound">K.I.M.</span>
+        </div>
+        <div data-key="80" class="key">
+            <kbd>P</kbd>
+            <span class="sound">P.D.</span>
+        </div>
+        <div data-key="87" class="key">
+            <kbd>W</kbd>
+            <span class="sound">Wolves</span>
+        </div>
+        <!-- <input onkeydown="alert(event.keyCode)" /> -->
+    </div>
+
+    <audio data-key="68" src="sound/danger.mp3" />
+    <audio data-key="69" src="sound/everyday.mp3" />
+    <audio data-key="70" src="sound/friends.mp3" />
+    <audio data-key="75" src="sound/keep it mello.mp3" />
+    <audio data-key="80" src="sound/project dreams.mp3" />
+    <audio data-key="87" src="sound/wolves.mp3" />
+
+    <script>
+
+        let currentAudio = null;
+
+        function stop(audio) {
+            audio.pause();
+            audio.currentTime = 0;
+        }
+
+        function play(event) {
+            const audio = document.querySelector(`audio[data-key="${event.keyCode}"]`);
+            const kbd = document.querySelector(`.key[data-key="${event.keyCode}"]`);
+
+            if (!audio) {
+                return;
+            }
+
+            if (audio.classList.contains("isPlay")) {
+                stop(audio);
+                kbd.classList.add("playing");
+                audio.classList.remove("isPlay");
+                return;
+            }
+
+            if (!!currentAudio && audio.attributes[0].value !== currentAudio.attributes[0].value) {
+                stop(currentAudio);
+                currentAudio.classList.remove("isPlay");
+            }
+
+            audio.currentTime = 0;
+            audio.play();
+            audio.classList.add("isPlay");
+            currentAudio = audio;
+            kbd.classList.add("playing");
+        }
+
+        function removeTransition(event) {
+            if (event.propertyName !== "transform") return;
+            this.classList.remove("playing");
+        }
+
+        const keys = document.querySelectorAll(".key");
+
+        keys.forEach(key => {
+            key.addEventListener("transitionend", removeTransition);
+            key.onclick = rrr;
+        });
+
+        function rrr(e) {
+            let keyCode = null;
+            for (let k in e.path) {
+
+                if (e.path[k].className === "key") {
+                    keyCode = e.path[k].attributes[0].value
+                }
+                // console.log(e.path)
+                // console.log(e.path[k].className === "key");
+                // console.log(e.path[k].attributes[0].value);
+            }
+            console.log(keyCode)
+            play({ keyCode })
+        }
+
+        window.addEventListener("keydown", play);
+
+    </script>
+</body>
+
+</html>
