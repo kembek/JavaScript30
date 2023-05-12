@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Type Ahead 👀</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <form class="search-form">
+    <input type="text" class="search" placeholder="City or State">
+    <ul class="suggestions">
+      <li>Filter for a city</li>
+      <li>or a state</li>
+    </ul>
+  </form>
+  <script>
+    const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+    const input = document.querySelector('.search');
+    const suggestions = document.querySelector('.suggestions');
+    // let cities = null;
+    const inventors = [
+      { first: 'Albert', last: 'Einstein', year: 1879, passed: 1955 },
+      { first: 'Isaac', last: 'Newton', year: 1643, passed: 1727 },
+      { first: 'Galileo', last: 'Galilei', year: 1564, passed: 1642 },
+      { first: 'Marie', last: 'Curie', year: 1867, passed: 1934 },
+      { first: 'Johannes', last: 'Kepler', year: 1571, passed: 1630 },
+      { first: 'Nicolaus', last: 'Copernicus', year: 1473, passed: 1543 },
+      { first: 'Max', last: 'Planck', year: 1858, passed: 1947 },
+      { first: 'Katherine', last: 'Blodgett', year: 1898, passed: 1979 },
+      { first: 'Ada', last: 'Lovelace', year: 1815, passed: 1852 },
+      { first: 'Sarah E.', last: 'Goode', year: 1855, passed: 1905 },
+      { first: 'Lise', last: 'Meitner', year: 1878, passed: 1968 },
+      { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 }
+    ];
+
+    // fetch(endpoint).then(data => cities = data.json());
+
+    function searchInInventors(matchWord, arr) {
+      return arr.filter(invent => {
+        const { first, last } = invent;
+        const rgx = new RegExp(matchWord, 'gi');
+
+        return first.match(rgx, matchWord) || last.match(rgx, matchWord)
+      })
+    }
+
+    function numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    function searchInputHandler() {
+      // console.log(this.value);
+      console.log(searchInInventors(this.value, inventors));
+
+      const result = searchInInventors(this.value, inventors).map(invent => {
+        const { first, last, year } = invent;
+
+        const rgx = new RegExp(this.value, 'gi');
+        const hlFirst = first.replace(rgx, `<span class="hl">${this.value}</span>`);
+        const hlLast = last.replace(rgx, `<span class="hl">${this.value}</span>`);
+
+        return `<li>
+          <span class="name">${hlFirst}, ${hlLast}</span>
+          <span class="population">${year}</span>
+        </li>`
+      }).join("");
+
+      suggestions.innerHTML = result;
+    }
+
+    input.addEventListener('change', searchInputHandler);
+    input.addEventListener('keyup', searchInputHandler);
+
+
+  </script>
+</body>
+
+</html>

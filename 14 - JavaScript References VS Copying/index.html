@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JS Reference VS Copy</title>
+</head>
+
+<body>
+
+  <script>
+    // start with strings, numbers and booleans
+    console.groupCollapsed("Primitive type copy")
+    let ageOne = 18, ageTwo = 18;
+    console.log(ageOne, ageTwo);
+    ageTwo = 20;
+    console.log(ageOne, ageTwo);
+
+    let nameOne = "Kembek", nameTwo = "Beknazar";
+    console.log(nameOne, nameTwo);
+    nameTwo = "zeus";
+    console.log(nameOne, nameTwo);
+    console.groupEnd("Primitive type copy");
+    // Let's say we have an array
+    console.groupCollapsed("Object type with references");
+    const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+
+    // and we want to make a copy of it.
+    const team = players;
+    console.log(players, team);
+    // You might think we can just do something like this:
+    team.pop();
+
+    // however what happens when we update that array? 
+    console.log("------");
+    console.log(players, team);
+    console.groupEnd();
+    // now here is the problem!
+
+    // oh no - we have edited the original array too!
+
+    // Why? It's because that is an array reference, not an array copy. They both point to the same array!
+
+    console.group("Array copy solution");
+    const team2 = [];
+    players.forEach(element => {
+      team2.push(element);
+    });
+    // So, how do we fix this? We take a copy instead!
+    const team3 = players.slice();
+    const team4 = players.join("\n").split("\n");
+
+    // one way
+
+    // or create a new array and concat the old one in
+    const team5 = [].concat(players);
+    // or use the new ES6 Spread
+    const team6 = [...players];
+    const team7 = Array.from(players);
+    const team8 = [[1, 2, 3], [6, 5, 4]];
+    const team9 = team8.slice();
+
+
+
+    // now when we update it, the original one isn't changed
+    console.log("Players BEGIN", players);
+    team2[1] = team2[1].slice(-1);
+    console.log("Team 2", team2);
+    delete team3[0];
+    console.log("Team 3", team3);
+    team4.shift();
+    console.log("Team 4", team4);
+    team5.splice(1, 1);
+    console.log("Team 5", team5);
+    team6.push('Kkk')
+    console.log("Team 6", team6);
+    team7.splice(team7.length, 0, "sss", "zzz", "ddd");
+    console.log("Team 7", team7);
+    team8.splice(0, 1);
+    console.log("Team 8 and team9", team8, team9);
+    console.log("Players END", players);
+    console.groupEnd("Array copy solution");
+    
+    // The same thing goes for objects, let's say we have a person object
+    console.groupCollapsed("Object sollution");
+    // with Objects
+    const person = {
+      name: 'Wes Bos',
+      age: 80
+    };
+
+    // and think we make a copy:
+    const person2 = {};
+    for (let key in person) {
+      person2[key] = person[key];
+    }
+
+    const person3 = Object.assign({}, person);
+    const person4 = { ...person };
+    const person5 = JSON.parse(JSON.stringify(Object.assign({}, person, { ss: { sss: "sss", dd: "ddd" } })));
+
+    console.log("Person BEGIN: ", person);
+    person2['f'] = (function () {
+      console.log(this.name.toUpperCase());
+    });
+    console.log("Person 2: ", person2);
+
+    delete person3.age;
+    console.log("Person 3: ", person3);
+
+    person4.name = "John";
+    person4.age = 60;
+    console.log("Person 4: ", "f" in person4);
+    console.log("Person 4: ", person4);
+
+    person5.ss.sss = "Normal value";
+
+    console.log("Person 5: ", person5);
+    console.log("Person End: ", person);
+    // how do we take a copy instead?
+
+    // We will hopefully soon see the object ...spread
+    console.groupEnd("Object sollution");
+    // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+
+  </script>
+
+</body>
+
+</html>

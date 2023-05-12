@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+  <style>
+    p:hover {
+      color: red;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }],
+      str = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea deleniti sunt officiis ducimus aliquid voluptatibus, possimus atque voluptates amet! Error molestiae repudiandae culpa nulla corporis sed temporibus corrupti a inventore?",
+      p = document.querySelector('p');
+
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+
+    // Regular
+    console.log('Hello!');
+
+    // Interpolated
+    console.log('Some %s text and plus text %s', str);
+
+    // Styled
+    console.log('%c Styled text', "font-size: 24px; color: yellow;");
+
+    // warning!
+    console.warn('Warning message SEE ME!');
+
+    // Error :|
+    console.error('What it error??');
+
+    // Info
+    console.info('this fun fun INFO )))');
+
+    // Testing
+    console.assert(p.classList.contains('bla'), 'This class not have this class');
+
+    // clearing
+    // console.clear();
+
+    // Viewing DOM Elements and object
+    console.dir(p);
+
+    // Grouping together
+    dogs.forEach(dog => {
+      const { name, age } = dog;
+
+      console.groupCollapsed(name);
+      // OR
+      // console.group(name);
+      console.log(`This is my dog and I call ${name}`);
+      console.log(`Year ${age}`);
+      console.groupEnd(name);
+    })
+
+    // counting
+    console.count('Ship');
+    console.count('Ship');
+    console.count('Ship');
+    console.count('Weather');    
+    console.count('Ship');
+    console.count('Weather');
+    console.count('Ship');
+    console.count('Weather');
+       
+
+    // timing
+    console.time('someAction');
+    setTimeout(function() {
+      console.timeEnd('someAction');
+    }, 2000);
+
+  </script>
+</body>
+
+</html>
